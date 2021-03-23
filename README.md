@@ -10,6 +10,7 @@ A simple app that receives data via several input fields and displays the data o
 - Redux Toolkit
 - React-Table
 - Type Script
+- custom hooks
 
 ### Functionalities
 - Add users

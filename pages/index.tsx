@@ -10,7 +10,7 @@ export default () => {
       <Head>
         <title>Welcom to Contact Form</title>
       </Head>
-      <Container height="100%" marginTop="10">
+      <Container height="100%" marginTop="10" border="1px" padding="17" borderColor="gray.200">
         <Text fontSize="5xl">Hi there  {String.fromCodePoint(0x1F44B)}</Text>
 
         <Text fontSize="3xl">Welcome to My Contact app</Text>

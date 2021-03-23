@@ -2,13 +2,13 @@ import * as React from "react"
 import { Button } from "@chakra-ui/button"
 import { FormControl, FormHelperText, FormLabel } from "@chakra-ui/form-control"
 import { Input } from "@chakra-ui/input"
-import { Box, Stack, Link as RLink } from "@chakra-ui/react"
+import { Box, Stack, Link as RLink, Text } from "@chakra-ui/react"
 import { Container } from "next/app"
 import useContactForm from '../hooks/contactForm'
 import useValidateContactForm from "../hooks/contactFormValidation";
 import formConstant from "../util/formConstant"
 import { useDispatch, useSelector } from 'react-redux'
-import { addContact, editContact, disableSuccess, selectSuccess, setCurrentId , selectCurrentId, selectContacts} from "../redux/reducers"
+import { addContact, editContact, disableSuccess, selectSuccess, setCurrentId, selectCurrentId, selectContacts } from "../redux/reducers"
 import { useRouter } from 'next/router'
 import Link from "next/link"
 import { IContact } from "../interfaces/indext"
@@ -25,17 +25,18 @@ export default ({ formAction }) => {
     React.useEffect(() => {
         // debugger
         if (formAction === 2) {
-            if(typeof id !== "undefined"){
-                if(typeof contacts[+id] !== "undefined") {
+            if (typeof id !== "undefined") {
+                if (typeof contacts[+id] !== "undefined") {
                     setFormValue({ field: "setAll", value: contacts[+id] })
                 } else {
+                    alert("Data does not exist")
                     router.push('/createContact')
                 }
             }
         }
     }, [formAction, id])
     React.useEffect(() => {
-        if(currentId > -1 && formAction === 2) {
+        if (currentId > -1 && formAction === 2) {
         }
     }, [currentId])
     React.useEffect(() => {
@@ -67,12 +68,12 @@ export default ({ formAction }) => {
             }
         }
     }, [validationError.validationAction])
-    return <Box display="flex">
-        <Box marginX="auto" marginTop="10">
+    return <Box marginX="auto" marginTop="10" border="1px" padding="20" borderColor="gray.200">
             <Box display="flex" justifyContent="space-between">
                 <RLink as={Link} href="./">Home</RLink>
                 <RLink as={Link} href="/viewContacts">View Contacts</RLink>
             </Box>
+            <Text fontSize="3xl">{`${formAction === 1?"Create":"Update"} Contact`}</Text>
             <form onSubmit={(e) => {
                 e.preventDefault()
                 setValidationAction(formAction)
@@ -112,5 +113,5 @@ export default ({ formAction }) => {
                 </Container>
             </form>
         </Box>
-    </Box>
+ 
 }

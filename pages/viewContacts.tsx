@@ -101,64 +101,63 @@ export default () => {
     const success = useSelector(selectSuccess)
     const [data, setData] = React.useState(activeContact)
     const [columns, setColumns] = React.useState([
-            {
-                Header: 'Contacts',
-                columns: [
-                    {
-                        Header: 'Name',
-                        accessor: 'fullName',
-                    },
-                    {
-                        Header: 'Email',
-                        accessor: 'emailAddress',
-                    },
-                    {
-                        Header: 'Mobile',
-                        accessor: 'mobile',
-                    },
-                    {
-                        Header: 'City',
-                        accessor: 'city',
-                    },
-                    {
-                        id: 'editbutton',
-                        accessor: 'id',
-                        Cell: ({ value }) => (<RLink as={Link} href={`editContact/${value}`} >Edit</RLink>)
-                    },
-                    {
-                        id: 'deletbutton',
-                        accessor: 'id',
-                        Cell: ({ value }) => (<Button onClick={(e) => {
-                            e.preventDefault()
-                            if(confirm("Are you sure you want to delete!"))
+        {
+            Header: 'Contacts',
+            columns: [
+                {
+                    Header: 'Name',
+                    accessor: 'fullName',
+                },
+                {
+                    Header: 'Email',
+                    accessor: 'emailAddress',
+                },
+                {
+                    Header: 'Mobile',
+                    accessor: 'mobile',
+                },
+                {
+                    Header: 'City',
+                    accessor: 'city',
+                },
+                {
+                    id: 'editbutton',
+                    accessor: 'id',
+                    Cell: ({ value }) => (<RLink as={Link} href={`editContact/${value}`} >Edit</RLink>)
+                },
+                {
+                    id: 'deletbutton',
+                    accessor: 'id',
+                    Cell: ({ value }) => (<Button onClick={(e) => {
+                        e.preventDefault()
+                        if (confirm("Are you sure you want to delete!"))
                             dispatch(deleteContact(data[+value]))
-                        }} >Delete</Button>)
-                    }
-                ],
-            },
-        ])
+                    }} >Delete</Button>)
+                }
+            ],
+        },
+    ])
 
-        React.useEffect(() => {
-            debugger
-            if(success) {
-                alert("Deleted Sucessfullt!")
-                setData(activeContact)
-            }
-            return () => {
-                dispatch(disableSuccess())
-            }
-        },[success])
+    React.useEffect(() => {
+        debugger
+        if (success) {
+            alert("Deleted Sucessfullt!")
+            setData(activeContact)
+        }
+        return () => {
+            dispatch(disableSuccess())
+        }
+    }, [success])
 
     return (
-        <Container>
-
-            <Box display="flex" justifyContent="space-between">
-                <RLink as={Link} href="./">Home</RLink>
-                <RLink as={Link} href="./createContact">Create Contacts</RLink>
+            <Box padding="17" borderColor="gray.200" border="1px">
+                <Box display="flex" justifyContent="space-between">
+                    <RLink as={Link} href="./">Home</RLink>
+                    <RLink as={Link} href="./createContact">Create Contacts</RLink>
+                </Box>
+                <Styles>
+                    <Table columns={columns} data={data} />
+                </Styles>
             </Box>
-            <Styles>
-                <Table columns={columns} data={data} />
-            </Styles>
-        </Container>
     )
 }
